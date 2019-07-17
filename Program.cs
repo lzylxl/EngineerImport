@@ -1,6 +1,7 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace EngineerImport
 {
@@ -12,7 +13,22 @@ namespace EngineerImport
             p.ImportExcelEngineer(@"C:\Users\Administrator\Documents\WeChat Files\lzy945945\FileStorage\File\2019-07\用户信息.xlsx");
         }
 
-        
+        //连接数据库
+        static string connstr = "server=.database=EngineerDB;uid=root;pwd=1433547973@qq.com";
+        SqlConnection conn = new SqlConnection(connstr);
+        public void GetConnection()
+        {
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        //导入Excel后的操作
         public void ImportExcelEngineer(string filePath)
         {
             try
@@ -24,7 +40,7 @@ namespace EngineerImport
                     int rows = sheet.Dimension.End.Row;
                     int cols = sheet.Dimension.End.Column;
                     string[,] engineerSheet = new string[rows, cols];
-                    //将Excel中信息放入engineerSheet
+                    //将Excel中信息放入engineerSheet二维数组中
                     for (int i = 1; i <= rows; i++)
                     {
                         for (int j = 1; j <= cols; j++)
@@ -92,6 +108,9 @@ namespace EngineerImport
                     //    }
                     //    Console.WriteLine();
                     //}
+                    
+                    
+                    
                 }
             }catch(Exception e)
             {
