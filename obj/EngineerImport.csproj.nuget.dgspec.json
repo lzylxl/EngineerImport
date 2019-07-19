@@ -52,6 +52,10 @@
               "version": "[2.2.0, )",
               "autoReferenced": true
             },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.16, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.6.1, )"
