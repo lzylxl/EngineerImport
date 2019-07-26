@@ -2,10 +2,10 @@ C:\Users\Administrator\source\repos\EngineerImport\bin\Debug\netcoreapp2.2\Engin
 C:\Users\Administrator\source\repos\EngineerImport\bin\Debug\netcoreapp2.2\EngineerImport.runtimeconfig.json
 C:\Users\Administrator\source\repos\EngineerImport\bin\Debug\netcoreapp2.2\EngineerImport.runtimeconfig.dev.json
 C:\Users\Administrator\source\repos\EngineerImport\bin\Debug\netcoreapp2.2\EngineerImport.dll
+C:\Users\Administrator\source\repos\EngineerImport\bin\Debug\netcoreapp2.2\EngineerImport.pdb
 C:\Users\Administrator\source\repos\EngineerImport\obj\Debug\netcoreapp2.2\EngineerImport.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\source\repos\EngineerImport\obj\Debug\netcoreapp2.2\EngineerImport.AssemblyInfoInputs.cache
 C:\Users\Administrator\source\repos\EngineerImport\obj\Debug\netcoreapp2.2\EngineerImport.AssemblyInfo.cs
-C:\Users\Administrator\source\repos\EngineerImport\bin\Debug\netcoreapp2.2\EngineerImport.pdb
 C:\Users\Administrator\source\repos\EngineerImport\obj\Debug\netcoreapp2.2\EngineerImport.dll
 C:\Users\Administrator\source\repos\EngineerImport\obj\Debug\netcoreapp2.2\EngineerImport.pdb
 C:\Users\Administrator\source\repos\EngineerImport\obj\Debug\netcoreapp2.2\EngineerImport.csprojAssemblyReference.cache

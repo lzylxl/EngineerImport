@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using OfficeOpenXml;
+using System;
 using System.IO;
-using MySql.Data.MySqlClient;
-using OfficeOpenXml;
-
+using System.Data.SqlClient;
+using System.Data;
 
 namespace EngineerImport
 {
-    class ImportExcelEngineer_mysql
+    class ImportExcelEngineer_SqlServer
     {
-        static string connstr = "server=localhost;port=3306;uid=root;password=1433547973@qq.com;database=engineerdb";
-        MySqlConnection conn = new MySqlConnection(connstr);
+        static string connstr = "server=.;database=EngineerDB;uid=sa;pwd=1433547973@qq.com";
+        SqlConnection conn = new SqlConnection(connstr);
+
         public void ImportExcelEngineer(string filePath)
         {
             try
@@ -44,7 +43,7 @@ namespace EngineerImport
                     //使userSheet的列名和数据库中usertable对应
                     conn.Open();
                     string condition = "select* from usertable";
-                    MySqlDataAdapter data = new MySqlDataAdapter(condition, conn);
+                    SqlDataAdapter data = new SqlDataAdapter(condition, conn);
                     DataSet userDS = new DataSet();
                     data.Fill(userDS);
                     int usersheetRows = rows;
@@ -58,7 +57,7 @@ namespace EngineerImport
                     //创建一个二维数组abilitySheet存放用户的能力数据
                     //使abilitySheet的列名和数据库中abilitytable对应
                     condition = "select* from abilitytable";
-                    data = new MySqlDataAdapter(condition, conn);
+                    data = new SqlDataAdapter(condition, conn);
                     DataSet abilityDS = new DataSet();
                     data.Fill(abilityDS);
                     int abilitysheetRows = rows;
@@ -132,14 +131,15 @@ namespace EngineerImport
                         usernameCol++;
                         if (column.ColumnName.ToString().Equals("Username")) break;
                     }
-                    MySqlCommand cmd = null;
+                    SqlCommand cmd = null;
                     string sql = null;
                     for (int i = 1; i < userSheet.GetLength(0); i++)
                     {
                         //判断用户名是否已经存在，不存在则存入数据，存在则跳过
-                        sql = "select count(*) from usertable where username='" + userSheet[i, usernameCol - 1] + "'";
-                        cmd = new MySqlCommand(sql, conn);
-                        if (cmd.ExecuteScalar() != null) 
+                        sql = "select count(*) from usertable where userName='" + userSheet[i, usernameCol - 1] + "'";
+                        cmd = new SqlCommand(sql, conn);
+                        bool usernameExist = (int)cmd.ExecuteScalar() > 0;
+                        if (usernameExist)
                         {
                             continue;
                         }
@@ -151,7 +151,7 @@ namespace EngineerImport
                                 sql += "'" + userSheet[i, j] + "',";
                             }
                             sql = "insert into usertable values('" + userSheet[i, 0] + "'," + sql + "'" + userSheet[i, userSheet.GetLength(1) - 1] + "')";
-                            cmd = new MySqlCommand(sql, conn);
+                            cmd = new SqlCommand(sql, conn);
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -165,16 +165,17 @@ namespace EngineerImport
                     for (int i = 1; i < abilitySheet.GetLength(0); i++)
                     {
                         //判断用户名是否已经存在，不存在则存入数据，存在则跳过
-                        sql = "select count(*) from abilitytable where username='" + abilitySheet[i, usernameCol - 1] + "'";
-                        cmd = new MySqlCommand(sql, conn);
-                        if (cmd.ExecuteScalar() != null)
+                        sql = "select count(*) from abilitytable where userName='" + abilitySheet[i, usernameCol - 1] + "'";
+                        cmd = new SqlCommand(sql, conn);
+                        bool usernameExist = (int)cmd.ExecuteScalar() > 0;
+                        if (usernameExist)
                         {
                             continue;
                         }
                         else
                         {
                             sql = "insert into abilitytable values('" + abilitySheet[i, 0] + "','" + abilitySheet[i, 1] + "'," + abilitySheet[i, 2] + ",'" + abilitySheet[i, 3] + "')";
-                            cmd = new MySqlCommand(sql, conn);
+                            cmd = new SqlCommand(sql, conn);
                             cmd.ExecuteNonQuery();
                         }
 
